@@ -39,7 +39,7 @@ function draw() {
     block.update()
   })
 
-  powerup.forEach(powerup => {
+  powerups.forEach(powerup => {
     powerup.render()
     powerup.update()
   })
