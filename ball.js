@@ -16,9 +16,9 @@ class Ball {
 
   update(paddle, blocks) {
     // left and right wall check
-    if (this.x < 0 || this.x > innerWidth) this.hspd *= -1
+    if (this.x < this.r/2 || this.x > innerWidth - (this.r/2)) this.hspd *= -1
     // top wall check
-    if (this.y < 0) this.vspd *= -1
+    if (this.y < this.r/2) this.vspd *= -1
 
     this.check_paddle_collision(paddle)
     
@@ -31,7 +31,7 @@ class Ball {
   }
 
   check_paddle_collision(paddle) {
-    if (this.x > paddle.x && this.x < paddle.x+paddle.w && this.y > paddle.y && this.y < paddle.y+paddle.h) this.vspd *= -1
+    if (this.x > paddle.x && this.x < paddle.x+paddle.w && this.y + (this.r/2) > paddle.y && this.y < paddle.y+paddle.h) this.vspd *= -1
   }
 
   check_block_collision(block) {
@@ -39,7 +39,7 @@ class Ball {
     if (this.x > block.x && this.x < block.x+block.w && this.y > block.y && this.y < block.y+block.h) {
       this.vspd *= -1
       block.break()
-      balls.push(new Ball(this.x, this.y, 10, this.hspd*-1, this.vspd))
+      balls.push(new Ball(this.x, this.y, this.r, this.hspd*-1, this.vspd))
     }
   }
 }

@@ -3,6 +3,7 @@ let W, H
 let paddle
 let balls = []
 let blocks = []
+let powerups = []
 let block_colors = ['red', 'green', 'blue', 'yellow', 'pink', 'purple']
 
 function setup() {
@@ -10,7 +11,7 @@ function setup() {
   H = innerHeight
   paddle = new Paddle(W/2, H-20, 200, 30)
 
-  balls.push(new Ball(paddle.x+(paddle.w/2), paddle.y-10, 10, -10, -10))
+  balls.push(new Ball(paddle.x+(paddle.w/2), paddle.y-10, 20, -6, -6))
   
   for (let i = 0; i < W; i += 50) {
     for (let j = 0; j < H/2; j += 20) {
@@ -36,5 +37,10 @@ function draw() {
   blocks.forEach(block => {
     block.render()
     block.update()
+  })
+
+  powerup.forEach(powerup => {
+    powerup.render()
+    powerup.update()
   })
 }
