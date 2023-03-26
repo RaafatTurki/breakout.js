@@ -11,7 +11,7 @@ class Powerup {
   render() {
     if (!this.consumed) {
       noStroke()
-      fill('white')
+      fill('#04D9FF')
       ellipse(this.x, this.y, this.r)
     }
   }

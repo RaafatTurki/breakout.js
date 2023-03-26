@@ -12,13 +12,13 @@ class Ball {
 
   render() {
     noStroke()
-    fill('red')
+    fill('#FE019A')
     ellipse(this.x, this.y, this.r)
   }
 
   update(paddle, blocks) {
     // left and right wall check
-    if (this.x < this.r/2 || this.x > innerWidth - (this.r/2)) this.hspd *= -1
+    if (this.x < this.r/2 || this.x > W - (this.r/2)) this.hspd *= -1
     // top wall check
     if (this.y < this.r/2) this.vspd *= -1
 
@@ -89,5 +89,4 @@ class Ball {
     // if (this.x > b.x && this.x < b.x+b.w && this.y > b.y && this.y < b.y+b.h) {
     // }
   }
-
 }

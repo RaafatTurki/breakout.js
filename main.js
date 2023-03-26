@@ -1,22 +1,58 @@
 let W, H
+let CW = 40
+let CH = 40
 
 let paddle
 let balls = []
 let blocks = []
 let powerups = []
-let block_colors = ['red', 'green', 'blue', 'yellow', 'pink', 'purple']
+let backgroundImage
+
+let map = [
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [2, 2, 2, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+  [2, 2, 2, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+  [3, 3, 3, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+function preload(){
+  backgroundImage = loadImage('assets/bg.jpg')
+}
+
+function keyIsPressed(){
+  if (keyCode == LEFT_ARROW){
+    paddle.x += -5
+  
+  }
+  else if (keycode == RIGHT_ARROW){
+    paddle.x += 5
+  }
+}
 
 function setup() {
-  W = innerWidth
-  H = innerHeight
-  paddle = new Paddle(W/2, H-20, 200, 5)
+  W = CW * map[0].length
+  H = CH * map.length
 
-  balls.push(new Ball(paddle.x+(paddle.w/2), paddle.y-10, 20, -6, -6))
+  paddle = new Paddle(W/2, H-20, 200, 5, 15)
 
-  for (let i = 0; i < W; i += 50) {
-    for (let j = 0; j < H/2; j += 20) {
-      let color = block_colors[floor(random(block_colors.length))]
-      blocks.push(new Block(i, j, 50, 20, color))
+  balls.push(new Ball(paddle.x+(paddle.w/2), paddle.y-10, 20, -3, -3))
+
+  for (let i = 0; i < map.length; i++) {
+    for (let j = 0; j < map[0].length; j++) {
+      let t = map[i][j]
+      if (t == 0) continue
+      blocks.push(new Block(j*CW, i*CH, CW, CH, t))
     }
   }
 
@@ -24,8 +60,9 @@ function setup() {
 }
 
 function draw() {
-  background('black')
-  
+  background('#162F4B')
+  image(backgroundImage, 0, 0, W, H)
+
   paddle.render()
   paddle.update()
 
