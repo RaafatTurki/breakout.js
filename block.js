@@ -5,7 +5,6 @@ class Block {
     this.w = w
     this.h = h
     this.c = c
-
     this.broken = false
   }
 
@@ -16,11 +15,14 @@ class Block {
       rect(this.x, this.y, this.w, this.h)
     }
   }
-  
+
   update() {
   }
 
   break() {
     this.broken = true
+    if (random() < 0.1) {
+      powerups.push(new Powerup(this.x, this.y, 20))
+    }
   }
 }
